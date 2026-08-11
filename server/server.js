@@ -98,7 +98,7 @@ const PORT = process.env.PORT || 5000;
 // Connect to DB and Start Server
 connectDB().then(() => {
   seedSampleData();
-  app.listen(PORT, () => {
-    console.log(`🚀 CampusFind Backend Server running on http://localhost:${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 CampusFind Backend Server running on port ${PORT}`);
   });
 });
