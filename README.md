@@ -1,5 +1,7 @@
 # 🔍 CampusFind – Campus Lost & Found Portal
 
+🌐 **Live Website**: [https://campus-find-pied.vercel.app/](https://campus-find-pied.vercel.app/)
+
 CampusFind is a full-stack **MERN** (MongoDB, Express.js, React, Node.js) web application designed for college students to report lost belongings, post found items, search records, and manage their listings securely with JWT authentication.
 
 Designed with **RescueNet**'s signature aesthetic: Quicksand typography, glassmorphism cards, glowing status badges (Lost 🔴, Found 🟢, Returned 🔵), and an emerald ocean dark theme.
