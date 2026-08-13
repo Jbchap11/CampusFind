@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const dns = require('dns');
 
-// Explicitly set Node.js DNS resolver to Google/Cloudflare DNS to resolve Atlas SRV records on Windows
 try {
   dns.setServers(['8.8.8.8', '1.1.1.1']);
 } catch (e) {
@@ -28,7 +27,6 @@ const connectDB = async () => {
     console.log(`In-Memory MongoDB Connected at: ${memoryUri}`);
   } catch (error) {
     console.error(`MongoDB Connection Error: ${error.message}`);
-    // Graceful fallback to memory server if local MongoDB is unreachable
     try {
       console.log('Attempting fallback to MongoMemoryServer...');
       const { MongoMemoryServer } = require('mongodb-memory-server');

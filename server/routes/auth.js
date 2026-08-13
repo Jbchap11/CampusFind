@@ -104,7 +104,6 @@ router.get('/me', auth, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
-    // Return consistent shape as login/register so currentUser.id always works
     res.json({
       id: user._id,
       name: user.name,

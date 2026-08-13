@@ -10,7 +10,6 @@ const Home = () => {
   const { user, showToast } = useAuth();
   const navigate = useNavigate();
 
-  // Feed states (only used when user is logged in)
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
@@ -40,7 +39,6 @@ const Home = () => {
   useEffect(() => {
     let active = true;
     if (user) {
-      // Debounce search input to avoid hitting backend on every keypress
       const delayDebounceFn = setTimeout(() => {
         if (active) fetchItems();
       }, 300);
@@ -154,7 +152,6 @@ const Home = () => {
     );
   }
 
-  // If user is logged in, show Browse Items page
   return (
     <div style={{ padding: '0 0 2rem 0' }}>
       <section className="hero-banner" style={{ padding: '2rem 1.5rem', marginBottom: '2rem' }}>

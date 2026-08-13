@@ -415,7 +415,6 @@ h1, h2, h3, h4, .font-heading {
   transition: border-color 0.3s ease;
 }
 
-/* Give the select dropdown itself a solid dark background so options are legible */
 .form-select {
   background: #0f3338;
   appearance: auto;
