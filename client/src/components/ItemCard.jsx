@@ -150,32 +150,76 @@ const ItemCard = ({ item, currentUser, onMarkReturned, onDelete, onEdit }) => {
               <p className="detail-desc">{item.description}</p>
             </div>
 
-            {/* Is this yours claim card */}
-            <div className={`claim-card ${item.status}`}>
-              {item.status === 'Lost' && (
-                <>
-                  <div className="claim-title Lost">🙋 Is this yours?</div>
-                  <div className="claim-subtitle">If you found this item or have any information, please reach out to the owner.</div>
-                </>
-              )}
-              {item.status === 'Found' && (
-                <>
-                  <div className="claim-title Found">🔍 Is this yours?</div>
-                  <div className="claim-subtitle">If you lost this item, please contact the finder to verify and claim it.</div>
-                </>
-              )}
-              {item.status === 'Returned' && (
-                <>
-                  <div className="claim-title Returned">🎉 Successfully Returned</div>
-                  <div className="claim-subtitle">This item has been reclaimed by its owner. Thank you!</div>
-                </>
-              )}
+            {/* Conditionally show management actions for the owner or the claim card for other users */}
+            {isOwner ? (
+              <div className="modal-owner-actions" style={{ marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
+                <div style={{ marginBottom: '1.5rem', background: 'rgba(255, 255, 255, 0.05)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <strong style={{ display: 'block', color: '#94a3b8', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.5rem' }}>Contact Details Provided</strong>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#fff' }}>
+                    <Mail size={16} />
+                    <span>{item.contact}</span>
+                  </div>
+                </div>
 
-              <div className="claim-contact-details">
-                <Mail size={18} style={{ color: 'var(--color-emerald-glow)' }} />
-                <span>{item.contact}</span>
+                <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
+                  {item.status !== 'Returned' && onMarkReturned && (
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); onMarkReturned(item._id); setIsDetailOpen(false); }} 
+                      className="btn-action btn-returned"
+                      style={{ flex: 1, padding: '0.8rem 1.2rem', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}
+                    >
+                      <CheckCircle2 size={16} /> Mark Returned
+                    </button>
+                  )}
+
+                  {onEdit && (
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); onEdit(item); setIsDetailOpen(false); }} 
+                      className="btn-action btn-edit"
+                      style={{ flex: 1, padding: '0.8rem 1.2rem', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}
+                    >
+                      <Edit3 size={16} /> Edit Post
+                    </button>
+                  )}
+
+                  {onDelete && (
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); onDelete(item._id); setIsDetailOpen(false); }} 
+                      className="btn-action btn-delete"
+                      style={{ flex: 1, padding: '0.8rem 1.2rem', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}
+                    >
+                      <Trash2 size={16} /> Delete Post
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className={`claim-card ${item.status}`}>
+                {item.status === 'Lost' && (
+                  <>
+                    <div className="claim-title Lost">🙋 Is this yours?</div>
+                    <div className="claim-subtitle">If you found this item or have any information, please reach out to the owner.</div>
+                  </>
+                )}
+                {item.status === 'Found' && (
+                  <>
+                    <div className="claim-title Found">🔍 Is this yours?</div>
+                    <div className="claim-subtitle">If you lost this item, please contact the finder to verify and claim it.</div>
+                  </>
+                )}
+                {item.status === 'Returned' && (
+                  <>
+                    <div className="claim-title Returned">🎉 Successfully Returned</div>
+                    <div className="claim-subtitle">This item has been reclaimed by its owner. Thank you!</div>
+                  </>
+                )}
+
+                <div className="claim-contact-details">
+                  <Mail size={18} style={{ color: 'var(--color-emerald-glow)' }} />
+                  <span>{item.contact}</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
